@@ -1,0 +1,104 @@
+[
+    {
+        "id": "ca2d51c4425cbb6a",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "8579491715e6543a",
+        "type": "telegram bot",
+        "botname": "persoandguitarteacher_bot",
+        "usernames": "",
+        "chatids": "",
+        "baseapiurl": "",
+        "updatemode": "polling",
+        "pollinterval": "300",
+        "usesocks": false,
+        "sockshost": "",
+        "socksprotocol": "socks5",
+        "socksport": "6667",
+        "socksusername": "anonymous",
+        "sockspassword": "",
+        "bothost": "",
+        "botpath": "",
+        "localbotport": "8443",
+        "publicbotport": "8443",
+        "privatekey": "",
+        "certificate": "",
+        "useselfsignedcertificate": false,
+        "sslterminated": false,
+        "verboselogging": false
+    },
+    {
+        "id": "764e496ee91ab265",
+        "type": "telegram receiver",
+        "z": "ca2d51c4425cbb6a",
+        "name": "persoandguitarteacher_bot",
+        "bot": "8579491715e6543a",
+        "saveDataDir": "",
+        "filterCommands": false,
+        "x": 300,
+        "y": 140,
+        "wires": [
+            [
+                "876304dcb424c3ea",
+                "1794f245a106ee7e"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "876304dcb424c3ea",
+        "type": "debug",
+        "z": "ca2d51c4425cbb6a",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 550,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "d13f0233d996b217",
+        "type": "telegram sender",
+        "z": "ca2d51c4425cbb6a",
+        "name": "",
+        "bot": "8579491715e6543a",
+        "haserroroutput": false,
+        "outputs": 1,
+        "x": 710,
+        "y": 280,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "1794f245a106ee7e",
+        "type": "function",
+        "z": "ca2d51c4425cbb6a",
+        "name": "function 1",
+        "func": "msg.payload.content = \"ola\"\n\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 520,
+        "y": 220,
+        "wires": [
+            [
+                "d13f0233d996b217"
+            ]
+        ]
+    }
+]
