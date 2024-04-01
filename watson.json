@@ -1,0 +1,165 @@
+[
+    {
+        "id": "ca2d51c4425cbb6a",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "8579491715e6543a",
+        "type": "telegram bot",
+        "botname": "persoandguitarteacher_bot",
+        "usernames": "",
+        "chatids": "",
+        "baseapiurl": "",
+        "updatemode": "polling",
+        "pollinterval": "300",
+        "usesocks": false,
+        "sockshost": "",
+        "socksprotocol": "socks5",
+        "socksport": "6667",
+        "socksusername": "anonymous",
+        "sockspassword": "",
+        "bothost": "",
+        "botpath": "",
+        "localbotport": "8443",
+        "publicbotport": "8443",
+        "privatekey": "",
+        "certificate": "",
+        "useselfsignedcertificate": false,
+        "sslterminated": false,
+        "verboselogging": false
+    },
+    {
+        "id": "764e496ee91ab265",
+        "type": "telegram receiver",
+        "z": "ca2d51c4425cbb6a",
+        "name": "persoandguitarteacher_bot",
+        "bot": "8579491715e6543a",
+        "saveDataDir": "",
+        "filterCommands": false,
+        "x": 140,
+        "y": 180,
+        "wires": [
+            [
+                "876304dcb424c3ea",
+                "c365830d5a263f2f"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "876304dcb424c3ea",
+        "type": "debug",
+        "z": "ca2d51c4425cbb6a",
+        "name": "entrada no telegram",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 420,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "d13f0233d996b217",
+        "type": "telegram sender",
+        "z": "ca2d51c4425cbb6a",
+        "name": "",
+        "bot": "8579491715e6543a",
+        "haserroroutput": false,
+        "outputs": 1,
+        "x": 870,
+        "y": 220,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "0d1cc346824c7da0",
+        "type": "debug",
+        "z": "ca2d51c4425cbb6a",
+        "name": "resposta para o telegram",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 730,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "c365830d5a263f2f",
+        "type": "function",
+        "z": "ca2d51c4425cbb6a",
+        "name": "prepara mensagem watson",
+        "func": "msg.params = {\n    \"session_id\" : msg.payload.session_id == 'undefined' ? msg.payload.session_id : \"\"  \n};\nmsg.payload = msg.payload.mensagem;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 400,
+        "y": 280,
+        "wires": [
+            [
+                "b29b2bee372fb61a"
+            ]
+        ]
+    },
+    {
+        "id": "69e2d32ed7b4e5cc",
+        "type": "function",
+        "z": "ca2d51c4425cbb6a",
+        "name": "function 2",
+        "func": "msg.payload = {\n    chatId : msg.cahtId,\n    type : \"message\",\n    content : msg.payload.output.generic[0].text\n};\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 680,
+        "y": 300,
+        "wires": [
+            [
+                "d13f0233d996b217"
+            ]
+        ]
+    },
+    {
+        "id": "b29b2bee372fb61a",
+        "type": "watson-assistant-v2",
+        "z": "ca2d51c4425cbb6a",
+        "name": "perso bot",
+        "service-endpoint": "https://api.au-syd.assistant.watson.cloud.ibm.com/instances/a3176cb0-0743-4d07-9a78-1aa632499bc3",
+        "assistant_id": "2bc5347d-f47d-44b9-9497-c35fc48195ac",
+        "debug": false,
+        "restart": false,
+        "return_context": true,
+        "alternate_intents": false,
+        "multisession": true,
+        "timeout": "",
+        "optout-learning": false,
+        "persist-session-id": false,
+        "x": 540,
+        "y": 200,
+        "wires": [
+            [
+                "0d1cc346824c7da0",
+                "69e2d32ed7b4e5cc"
+            ]
+        ]
+    }
+]
